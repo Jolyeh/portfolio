@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  nom         String
+  prenom      String
+  email       String   @unique
+  telephone   String
+  image       String
+  bio         String?
+  apropos     String?
+  pays        String?
+  ville       String?
+  code_postal String?
+  maison      String?
+  linkdin     String?
+  github      String?
+  x           String?
+  instagram   String?
+  password    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Skill {
+  id          Int       @id @default(autoincrement())
+  libelle     String
+  description String
+  image       String
+  active      Boolean
+  projets     Project[] @relation("SkillProjects")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Project {
+  id          Int      @id @default(autoincrement())
+  libelle     String
+  description String
+  lien_demo   String?
+  lien_code   String?
+  image1      String
+  image2      String
+  active      Boolean
+  skills      Skill[]  @relation("SkillProjects")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Tool {
+  id          Int      @id @default(autoincrement())
+  libelle     String
+  description String
+  image       String
+  active      Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  nom       String
+  email     String
+  sujet     String
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
