@@ -22,7 +22,7 @@ model User {
   telephone   String
   image       String
   bio         String?
-  apropos     String?
+  apropos     String? @db.Text
   pays        String?
   ville       String?
   code_postal String?
